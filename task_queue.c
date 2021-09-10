@@ -19,21 +19,15 @@ task_queue_enqueue(task_t task) {
     task_queue.head %= TASK_QUEUE_LENGTH;
 }
 
-task_t *
-task_queue_dequeue(void) {
+task_queue_dequeue_status
+task_queue_dequeue(task_t *task) {
     if (task_queue.head == task_queue.tail) {
         fprintf(stderr, "Could not dequeue task: The task queue is empty!\n");
-        return NULL;
+        return DEQUEUE_FAILURE;
     }
 
-    /*
-     * TODO(Jim Gerth): This pointer is only valid, as long as the task in the
-     * internal buffer was not overridden by TASK_QUEUE_LENGTH calls to enqueue.
-     * It would probably be easiest to accept a task_t pointer and copy the
-     * dequeued task into that location before returning.
-     */
-
-    task_t *task = &task_queue.tasks[task_queue.tail++];
+    task_t dequeued = task_queue.tasks[task_queue.tail++];
     task_queue.tail %= TASK_QUEUE_LENGTH;
-    return task;
+    *task = dequeued;
+    return DEQUEUE_SUCCESS;
 }

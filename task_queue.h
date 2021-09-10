@@ -24,7 +24,7 @@ task_queue_init(void);
 void
 task_queue_enqueue(task_t task);
 
-task_t
+task_t *
 task_queue_dequeue(void);
 
 #endif

@@ -13,6 +13,7 @@ void
 task_queue_enqueue(task_t task) {
     if ((task_queue.head + 1) % TASK_QUEUE_LENGTH == task_queue.tail) {
         fprintf(stderr, "Could not enqueue task: The task queue is full!\n");
+        return;
     }
 
     task_queue.tasks[task_queue.head++] = task;

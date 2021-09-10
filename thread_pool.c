@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #define TASK_QUEUE_LENGTH 5
+#define THREAD_POOL_SIZE 5
 
 typedef void (*task_action_t)(void);
 
@@ -40,7 +42,31 @@ task_queue_dequeue(void) {
     }
 }
 
+pthread_t thread_pool[THREAD_POOL_SIZE];
+
+void *
+thread_start_routine(void *arg) {
+    //TODO(Jim Gerth): Implement thread loop.
+    return NULL;
+}
+
+void
+thread_pool_init(void) {
+    for (int i = 0; i < THREAD_POOL_SIZE; i++) {
+        pthread_create(&thread_pool[i], NULL, thread_start_routine, NULL);
+    }
+}
+
+void
+thread_pool_join(void) {
+    for (int i = 0; i < THREAD_POOL_SIZE; i++) {
+        pthread_join(thread_pool[i], NULL);
+    }
+}
+
 int
 main(void) {
+    thread_pool_init();
+    thread_pool_join();
     return EXIT_SUCCESS;
 }

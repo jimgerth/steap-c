@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdbool.h>
+#include <unistd.h>
 
 #include "task_queue.h"
 
@@ -11,7 +13,15 @@ pthread_t thread_pool[THREAD_POOL_SIZE];
 
 void *
 thread_start_routine(void *arg) {
-    //TODO(Jim Gerth): Implement thread loop.
+    while (true) {
+        task_t task;
+        if (task_queue_dequeue(&task) == DEQUEUE_SUCCESS) {
+            task.action();
+        } else {
+            sleep(1);
+        }
+    }
+
     return NULL;
 }
 

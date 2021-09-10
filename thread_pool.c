@@ -25,21 +25,25 @@ task_queue_init(void) {
     task_queue.tail = 0;
 }
 
-int
+void
 task_queue_enqueue(task_t task) {
     if ((task_queue.head + 1) % TASK_QUEUE_LENGTH == task_queue.tail) {
-        return 1;
+        fprintf(stderr, "Could not enqueue task: The task queue is full!\n");
     }
 
     task_queue.tasks[task_queue.head++] = task;
-    return 0;
+    task_queue.head %= TASK_QUEUE_LENGTH;
 }
 
 task_t
 task_queue_dequeue(void) {
-    if (task_queue.head != task_queue.tail) {
-        return task_queue.tasks[task_queue.tail++];
+    if (task_queue.head == task_queue.tail) {
+        fprintf(stderr, "Could not dequeue task: The task queue is empty!\n");
     }
+
+    task_t task = task_queue.tasks[task_queue.tail++];
+    task_queue.tail %= TASK_QUEUE_LENGTH;
+    return task;
 }
 
 pthread_t thread_pool[THREAD_POOL_SIZE];
@@ -66,7 +70,11 @@ thread_pool_join(void) {
 
 int
 main(void) {
+    task_queue_init();
     thread_pool_init();
+
+    // TODO(Jim Gerth): Add tasks to queue.
+
     thread_pool_join();
     return EXIT_SUCCESS;
 }

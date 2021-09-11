@@ -1,8 +1,19 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <pthread.h>
 
 #include "task_queue.h"
 
+
+bool
+task_queue_empty(void) {
+    return task_queue.head == task_queue.tail;
+}
+
+bool
+task_queue_full(void) {
+    return (task_queue.head + 1) % TASK_QUEUE_LENGTH == task_queue.tail;
+}
 
 void
 task_queue_init(void) {
@@ -17,7 +28,7 @@ void
 task_queue_enqueue(task_t task) {
     pthread_mutex_lock(&task_queue.mutex);
 
-    while ((task_queue.head + 1) % TASK_QUEUE_LENGTH == task_queue.tail) {
+    while (task_queue_full()) {
         pthread_cond_wait(&task_queue.not_full, &task_queue.mutex);
     }
 
@@ -33,7 +44,7 @@ task_queue_dequeue_status
 task_queue_dequeue(task_t *task) {
     pthread_mutex_lock(&task_queue.mutex);
 
-    while (task_queue.head == task_queue.tail) {
+    while (task_queue_empty()) {
         pthread_cond_wait(&task_queue.not_empty, &task_queue.mutex);
     }
 

@@ -1,6 +1,7 @@
 #ifndef TASK_QUEUE_H
 #define TASK_QUEUE_H
 
+#include <stdbool.h>
 #include <pthread.h>
 
 
@@ -22,6 +23,12 @@ typedef struct {
 } task_queue_t;
 
 task_queue_t task_queue;
+
+bool
+task_queue_empty(void);
+
+bool
+task_queue_full(void);
 
 void
 task_queue_init(void);

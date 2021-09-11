@@ -22,21 +22,19 @@ typedef struct {
     pthread_cond_t not_full;
 } task_queue_t;
 
-task_queue_t task_queue;
+bool
+task_queue_empty(task_queue_t *task_queue);
 
 bool
-task_queue_empty(void);
-
-bool
-task_queue_full(void);
+task_queue_full(task_queue_t *task_queue);
 
 void
-task_queue_init(void);
+task_queue_init(task_queue_t *task_queue);
 
 void
-task_queue_submit(task_t task);
+task_queue_submit(task_queue_t *task_queue, task_t task);
 
 task_t
-task_queue_retrieve(void);
+task_queue_retrieve(task_queue_t *task_queue);
 
 #endif

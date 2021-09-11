@@ -9,12 +9,13 @@
 
 #define THREAD_POOL_SIZE 5
 
+task_queue_t task_queue;
 pthread_t thread_pool[THREAD_POOL_SIZE];
 
 void *
 thread_start_routine(void *arg) {
     while (true) {
-        task_queue_retrieve().action();
+        task_queue_retrieve(&task_queue).action();
     }
 
     return NULL;
@@ -36,7 +37,7 @@ thread_pool_join(void) {
 
 int
 main(void) {
-    task_queue_init();
+    task_queue_init(&task_queue);
     thread_pool_init();
 
     // TODO(Jim Gerth): Add tasks to queue.

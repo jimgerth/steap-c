@@ -36,12 +36,7 @@ task_queue_init(void);
 void
 task_queue_submit(task_t task);
 
-typedef enum {
-    DEQUEUE_SUCCESS,
-    DEQUEUE_FAILURE,
-} task_queue_dequeue_status;
-
-task_queue_dequeue_status
+void
 task_queue_retrieve(task_t *task);
 
 #endif

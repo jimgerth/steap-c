@@ -40,7 +40,7 @@ task_queue_submit(task_t task) {
     pthread_mutex_unlock(&task_queue.mutex);
 }
 
-task_queue_dequeue_status
+void
 task_queue_retrieve(task_t *task) {
     pthread_mutex_lock(&task_queue.mutex);
 
@@ -56,5 +56,4 @@ task_queue_retrieve(task_t *task) {
     pthread_mutex_unlock(&task_queue.mutex);
 
     *task = dequeued;
-    return DEQUEUE_SUCCESS;
 }

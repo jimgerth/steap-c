@@ -15,11 +15,8 @@ void *
 thread_start_routine(void *arg) {
     while (true) {
         task_t task;
-        if (task_queue_retrieve(&task) == DEQUEUE_SUCCESS) {
-            task.action();
-        } else {
-            sleep(1);
-        }
+        task_queue_retrieve(&task);
+        task.action();
     }
 
     return NULL;

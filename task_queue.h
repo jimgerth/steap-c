@@ -18,6 +18,7 @@ typedef struct {
     int tail;
     pthread_mutex_t mutex;
     pthread_cond_t not_empty;
+    pthread_cond_t not_full;
 } task_queue_t;
 
 task_queue_t task_queue;

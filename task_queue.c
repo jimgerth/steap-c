@@ -10,15 +10,15 @@ task_queue_init(void) {
     task_queue.tail = 0;
     pthread_mutex_init(&task_queue.mutex, NULL);
     pthread_cond_init(&task_queue.not_empty, NULL);
+    pthread_cond_init(&task_queue.not_full, NULL);
 }
 
 void
 task_queue_enqueue(task_t task) {
     pthread_mutex_lock(&task_queue.mutex);
 
-    if ((task_queue.head + 1) % TASK_QUEUE_LENGTH == task_queue.tail) {
-        fprintf(stderr, "Could not enqueue task: The task queue is full!\n");
-        return;
+    while ((task_queue.head + 1) % TASK_QUEUE_LENGTH == task_queue.tail) {
+        pthread_cond_wait(&task_queue.not_full, &task_queue.mutex);
     }
 
     task_queue.tasks[task_queue.head++] = task;
@@ -39,6 +39,8 @@ task_queue_dequeue(task_t *task) {
 
     task_t dequeued = task_queue.tasks[task_queue.tail++];
     task_queue.tail %= TASK_QUEUE_LENGTH;
+
+    pthread_cond_signal(&task_queue.not_full);
 
     pthread_mutex_unlock(&task_queue.mutex);
 

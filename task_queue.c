@@ -25,7 +25,7 @@ task_queue_init(void) {
 }
 
 void
-task_queue_enqueue(task_t task) {
+task_queue_submit(task_t task) {
     pthread_mutex_lock(&task_queue.mutex);
 
     while (task_queue_full()) {
@@ -41,7 +41,7 @@ task_queue_enqueue(task_t task) {
 }
 
 task_queue_dequeue_status
-task_queue_dequeue(task_t *task) {
+task_queue_retrieve(task_t *task) {
     pthread_mutex_lock(&task_queue.mutex);
 
     while (task_queue_empty()) {

@@ -15,7 +15,8 @@ pthread_t thread_pool[THREAD_POOL_SIZE];
 void *
 thread_start_routine(void *arg) {
     while (true) {
-        task_queue_retrieve(&task_queue).action();
+        task_t task = task_queue_retrieve(&task_queue);
+        task.action(task.argument);
     }
 
     return NULL;

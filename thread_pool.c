@@ -4,19 +4,19 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#include "task_queue.h"
+#include "task.h"
+#include "queue.h"
 
 
 #define THREAD_POOL_SIZE 5
 
-task_queue_t task_queue;
+queue_t queue;
 pthread_t thread_pool[THREAD_POOL_SIZE];
 
 void *
 thread_start_routine(void *arg) {
     while (true) {
-        task_t *task = task_queue_retrieve(&task_queue);
-        task->action(task->argument);
+        task_execute((task_t *)queue_retrieve(&queue));
     }
 
     return NULL;
@@ -38,7 +38,7 @@ thread_pool_join(void) {
 
 int
 main(void) {
-    task_queue_init(&task_queue);
+    queue_init(&queue);
     thread_pool_init();
 
     // TODO(Jim Gerth): Add tasks to queue.

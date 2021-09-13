@@ -34,4 +34,13 @@ typedef struct {
 void
 task_init(task_t *, task_action_t, void *);
 
+/*
+ * Execute the given task.
+ *
+ * This will hand execution over to the task's action function, passing in the
+ * task's supplied argument.
+ */
+void
+task_execute(task_t *);
+
 #endif /* !_TASK_H_ */

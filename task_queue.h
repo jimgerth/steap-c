@@ -41,7 +41,7 @@ typedef struct {
  * previously submitted.
  */
 typedef struct {
-    task_t tasks[TASK_QUEUE_LENGTH];
+    task_t *tasks[TASK_QUEUE_LENGTH];
     int head;
     int tail;
     pthread_mutex_t mutex;
@@ -79,7 +79,7 @@ task_queue_init(task_queue_t *);
  * the given task could successfully be added to the queue.
  */
 void
-task_queue_submit(task_queue_t *, task_t);
+task_queue_submit(task_queue_t *, task_t *);
 
 /*
  * Remove and return the oldest task from the given task queue.
@@ -92,7 +92,7 @@ task_queue_submit(task_queue_t *, task_t);
  * This call will block if the given task queue is empty. It will only return
  * once a task could successfully be retrieved from the queue.
  */
-task_t
+task_t *
 task_queue_retrieve(task_queue_t *);
 
 #endif /* !_TASK_QUEUE_H */

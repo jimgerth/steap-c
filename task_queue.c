@@ -25,7 +25,7 @@ task_queue_init(task_queue_t *task_queue) {
 }
 
 void
-task_queue_submit(task_queue_t *task_queue, task_t task) {
+task_queue_submit(task_queue_t *task_queue, task_t *task) {
     pthread_mutex_lock(&task_queue->mutex);
 
     while (task_queue_full(task_queue)) {
@@ -40,7 +40,7 @@ task_queue_submit(task_queue_t *task_queue, task_t task) {
     pthread_mutex_unlock(&task_queue->mutex);
 }
 
-task_t
+task_t *
 task_queue_retrieve(task_queue_t *task_queue) {
     pthread_mutex_lock(&task_queue->mutex);
 
@@ -48,12 +48,12 @@ task_queue_retrieve(task_queue_t *task_queue) {
         pthread_cond_wait(&task_queue->not_empty, &task_queue->mutex);
     }
 
-    task_t retrieved = task_queue->tasks[task_queue->tail++];
+    task_t *task = task_queue->tasks[task_queue->tail++];
     task_queue->tail %= TASK_QUEUE_LENGTH;
 
     pthread_cond_signal(&task_queue->not_full);
 
     pthread_mutex_unlock(&task_queue->mutex);
 
-    return retrieved;
+    return task;
 }

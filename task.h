@@ -24,4 +24,14 @@ typedef struct {
     void *argument;
 } task_t;
 
+
+/*
+ * Initialize a new task.
+ *
+ * This must be provided with a task_action_t and a void * as the argument for
+ * that task action.
+ */
+void
+task_init(task_t *, task_action_t, void *);
+
 #endif /* !_TASK_H_ */

@@ -6,6 +6,12 @@
 
 
 void
+queue_item_init(queue_item_t *item, void *data) {
+    item->next = NULL;
+    item->data = data;
+}
+
+void
 queue_init(queue_t *queue) {
     queue->head = 0;
     queue->tail = 0;

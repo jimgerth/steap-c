@@ -25,11 +25,16 @@ queue_empty(queue_t *queue) {
 }
 
 void
-queue_submit(queue_t *queue, void *item) {
+queue_submit(queue_t *queue, queue_item_t *item) {
     pthread_mutex_lock(&queue->mutex);
 
-    queue->items[queue->head++] = item;
-    queue->head %= QUEUE_LENGTH;
+    if (queue_empty(queue)) {
+        queue->head = item;
+    } else {
+        queue->tail->next = item;
+    }
+
+    queue->tail = item;
 
     pthread_cond_signal(&queue->not_empty);
 

@@ -59,7 +59,7 @@ queue_empty(queue_t *);
  * This call is synchronized and thus safe to call from different threads.
  */
 void
-queue_submit(queue_t *, void *);
+queue_submit(queue_t *, queue_item_t *);
 
 /*
  * Remove and return the oldest item from the given queue.

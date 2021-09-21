@@ -13,8 +13,8 @@ queue_item_init(queue_item_t *item, void *data) {
 
 void
 queue_init(queue_t *queue) {
-    queue->head = 0;
-    queue->tail = 0;
+    queue->head = NULL;
+    queue->tail = NULL;
     pthread_mutex_init(&queue->mutex, NULL);
     pthread_cond_init(&queue->not_empty, NULL);
 }

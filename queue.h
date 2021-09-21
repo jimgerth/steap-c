@@ -14,16 +14,17 @@ typedef struct queue_item_t {
 } queue_item_t;
 
 /*
- * A queue of generic items.
+ * A queue of items with a generic data payload.
  *
  * This queue serves as a "first in, first out" buffer, keeping track of
- * references to generic data (items). New items can be inserted into the queue
- * (submitted), while items in the queue can be removed again (retrieved). Items
- * will be retrieved in the same order they were previously submitted.
+ * references to queue items, which in turn keep track of arbitrary data. New
+ * items can be inserted into the queue (submitted), while items already in the
+ * queue can be removed again (retrieved). Items will be retrieved in the same
+ * order they were previously submitted.
  */
 typedef struct queue_t {
-    int head;
-    int tail;
+    queue_item_t *head;
+    queue_item_t *tail;
     pthread_mutex_t mutex;
     pthread_cond_t not_empty;
 } queue_t;

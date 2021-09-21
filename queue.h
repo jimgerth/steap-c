@@ -72,7 +72,7 @@ queue_submit(queue_t *, queue_item_t *);
  * This call will block if the given queue is empty. It will only return once an
  * item could successfully be retrieved from the queue.
  */
-void *
+queue_item_t *
 queue_retrieve(queue_t *);
 
 #endif /* !_QUEUE_H_ */

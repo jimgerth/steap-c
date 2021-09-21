@@ -6,41 +6,42 @@
 
 
 void
+queue_item_init(queue_item_t *item, void *data) {
+    item->next = NULL;
+    item->data = data;
+}
+
+void
 queue_init(queue_t *queue) {
-    queue->head = 0;
-    queue->tail = 0;
+    queue->head = NULL;
+    queue->tail = NULL;
     pthread_mutex_init(&queue->mutex, NULL);
     pthread_cond_init(&queue->not_empty, NULL);
-    pthread_cond_init(&queue->not_full, NULL);
 }
 
 bool
 queue_empty(queue_t *queue) {
-    return queue->head == queue->tail;
-}
-
-bool
-queue_full(queue_t *queue) {
-    return (queue->head + 1) % QUEUE_LENGTH == queue->tail;
+    return queue->head == NULL;
 }
 
 void
-queue_submit(queue_t *queue, void *item) {
+queue_submit(queue_t *queue, queue_item_t *item) {
     pthread_mutex_lock(&queue->mutex);
 
-    while (queue_full(queue)) {
-        pthread_cond_wait(&queue->not_full, &queue->mutex);
+    if (queue_empty(queue)) {
+        queue->head = item;
+    } else {
+        queue->tail->next = item;
     }
 
-    queue->items[queue->head++] = item;
-    queue->head %= QUEUE_LENGTH;
+    queue->tail = item;
 
     pthread_cond_signal(&queue->not_empty);
 
     pthread_mutex_unlock(&queue->mutex);
 }
 
-void *
+queue_item_t *
 queue_retrieve(queue_t *queue) {
     pthread_mutex_lock(&queue->mutex);
 
@@ -48,10 +49,15 @@ queue_retrieve(queue_t *queue) {
         pthread_cond_wait(&queue->not_empty, &queue->mutex);
     }
 
-    void *item = queue->items[queue->tail++];
-    queue->tail %= QUEUE_LENGTH;
+    queue_item_t *item = queue->head;
 
-    pthread_cond_signal(&queue->not_full);
+    queue->head = queue->head->next;
+
+    if (queue->head == NULL) {
+        queue->tail = NULL;
+    }
+
+    item->next = NULL;
 
     pthread_mutex_unlock(&queue->mutex);
 

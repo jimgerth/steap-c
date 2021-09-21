@@ -14,11 +14,6 @@ typedef struct queue_item_t {
 } queue_item_t;
 
 /*
- * How many items any queue_t instance can hold at a time.
- */
-#define QUEUE_LENGTH 5
-
-/*
  * A queue of generic items.
  *
  * This queue serves as a "first in, first out" buffer, keeping track of
@@ -27,7 +22,6 @@ typedef struct queue_item_t {
  * will be retrieved in the same order they were previously submitted.
  */
 typedef struct queue_t {
-    void *items[QUEUE_LENGTH];
     int head;
     int tail;
     pthread_mutex_t mutex;

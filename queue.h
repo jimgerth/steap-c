@@ -6,6 +6,14 @@
 
 
 /*
+ * An enqueueable item with a generic data payload.
+ */
+typedef struct queue_item_t {
+    struct queue_item_t *next;
+    void *data;
+} queue_item_t;
+
+/*
  * How many items any queue_t instance can hold at a time.
  */
 #define QUEUE_LENGTH 5

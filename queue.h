@@ -26,7 +26,6 @@ typedef struct queue_t {
     int tail;
     pthread_mutex_t mutex;
     pthread_cond_t not_empty;
-    pthread_cond_t not_full;
 } queue_t;
 
 /*
@@ -54,18 +53,9 @@ bool
 queue_empty(queue_t *);
 
 /*
- * Return whether the given queue is full.
- */
-bool
-queue_full(queue_t *);
-
-/*
  * Add the given item to the given queue.
  *
  * This call is synchronized and thus safe to call from different threads.
- *
- * This call will block if the given queue is full. It will only return once the
- * given item could successfully be added to the queue.
  */
 void
 queue_submit(queue_t *, void *);

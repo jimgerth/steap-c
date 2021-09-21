@@ -21,7 +21,7 @@ queue_init(queue_t *queue) {
 
 bool
 queue_empty(queue_t *queue) {
-    return queue->head == queue->tail;
+    return queue->head == NULL;
 }
 
 void

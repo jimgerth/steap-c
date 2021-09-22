@@ -18,8 +18,9 @@ queue_item_create(void *data) {
 }
 
 void
-queue_item_destroy(queue_item_t *item) {
-    free(item);
+queue_item_destroy(queue_item_t **item) {
+    free(*item);
+    *item = NULL;
 }
 
 void

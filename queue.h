@@ -48,7 +48,7 @@ queue_item_create(void *);
  * example.
  */
 void
-queue_item_destroy(queue_item_t *);
+queue_item_destroy(queue_item_t **);
 
 /*
  * Initialize a new queue item.

@@ -19,12 +19,20 @@ queue_item_create(void *data) {
 
 void
 queue_item_destroy(queue_item_t **item) {
+    if (item == NULL) {
+        return;
+    }
+
     free(*item);
     *item = NULL;
 }
 
 void
 queue_item_init(queue_item_t *item, void *data) {
+    if (item == NULL) {
+        return;
+    }
+
     item->next = NULL;
     item->data = data;
 }

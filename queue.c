@@ -108,7 +108,7 @@ queue_submit(queue_t *queue, void *data) {
     pthread_mutex_unlock(&queue->mutex);
 }
 
-queue_item_t *
+void *
 queue_retrieve(queue_t *queue) {
     if (queue == NULL) {
         return NULL;
@@ -128,9 +128,11 @@ queue_retrieve(queue_t *queue) {
         queue->tail = NULL;
     }
 
-    item->next = NULL;
-
     pthread_mutex_unlock(&queue->mutex);
 
-    return item;
+    void *data = item->data;
+
+    queue_item_destroy(&item);
+
+    return data;
 }

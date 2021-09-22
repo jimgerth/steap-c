@@ -40,7 +40,7 @@ thread_pool_join(void) {
 int
 main(void) {
     if ((queue = queue_create()) == NULL) {
-        fprintf("Task queue could not be created.");
+        fprintf(stderr, "Task queue could not be created.");
         return EXIT_FAILURE;
     }
 

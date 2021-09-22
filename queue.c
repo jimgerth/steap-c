@@ -42,6 +42,10 @@ queue_create(void) {
 
 void
 queue_destroy(queue_t **queue) {
+    if (queue == NULL) {
+        return;
+    }
+
     while (!queue_empty(*queue)) {
         queue_item_destroy(queue_retrieve(*queue));
     }
@@ -52,6 +56,10 @@ queue_destroy(queue_t **queue) {
 
 void
 queue_init(queue_t *queue) {
+    if (queue == NULL) {
+        return;
+    }
+
     queue->head = NULL;
     queue->tail = NULL;
     pthread_mutex_init(&queue->mutex, NULL);
@@ -60,11 +68,19 @@ queue_init(queue_t *queue) {
 
 bool
 queue_empty(queue_t *queue) {
+    if (queue == NULL) {
+        return true;
+    }
+
     return queue->head == NULL;
 }
 
 void
 queue_submit(queue_t *queue, queue_item_t *item) {
+    if (queue == NULL) {
+        return;
+    }
+
     pthread_mutex_lock(&queue->mutex);
 
     if (queue_empty(queue)) {
@@ -82,6 +98,10 @@ queue_submit(queue_t *queue, queue_item_t *item) {
 
 queue_item_t *
 queue_retrieve(queue_t *queue) {
+    if (queue == NULL) {
+        return NULL;
+    }
+
     pthread_mutex_lock(&queue->mutex);
 
     while (queue_empty(queue)) {

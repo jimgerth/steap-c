@@ -1,14 +1,51 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <pthread.h>
 
 #include "queue.h"
 
 
+queue_item_t *
+queue_item_create(void *data) {
+    queue_item_t *item;
+    if ((item = malloc(sizeof (queue_item_t))) == NULL) {
+        return NULL;
+    }
+
+    queue_item_init(item, data);
+    return item;
+}
+
+void
+queue_item_destroy(queue_item_t *item) {
+    free(item);
+}
+
 void
 queue_item_init(queue_item_t *item, void *data) {
     item->next = NULL;
     item->data = data;
+}
+
+queue_t *
+queue_create(void) {
+    queue_t *queue;
+    if ((queue = malloc(sizeof (queue_t))) == NULL) {
+        return NULL;
+    }
+
+    queue_init(queue);
+    return queue;
+}
+
+void
+queue_destroy(queue_t *queue) {
+    while (!queue_empty(queue)) {
+        queue_item_destroy(queue_retrieve(queue));
+    }
+
+    free(queue);
 }
 
 void

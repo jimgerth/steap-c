@@ -30,6 +30,27 @@ typedef struct queue_t {
 } queue_t;
 
 /*
+ * Create a new queue_item_t object.
+ *
+ * This will create and initialize a new queue_item_t and return a handle to
+ * that object.
+ *
+ * This will return NULL if the queue_item_t could not be created.
+ */
+queue_item_t *
+queue_item_create(void *);
+
+/*
+ * Destroy a queue_item_t object.
+ *
+ * This will destroy a queue_item_t object, that is not needed anymore. This
+ * includes freeing up any memory associated with the queue_item_t object for
+ * example.
+ */
+void
+queue_item_destroy(queue_item_t *);
+
+/*
  * Initialize a new queue item.
  *
  * This must be called for any newly declared queue_item_t, before calling any
@@ -37,6 +58,28 @@ typedef struct queue_t {
  */
 void
 queue_item_init(queue_item_t *, void *);
+
+/*
+ * Create a new queue_t object.
+ *
+ * This will create and initialize a new queue_t and return a handle to that
+ * object.
+ *
+ * This will return NULL if the queue_t could not be created.
+ */
+queue_t *
+queue_create(void);
+
+/*
+ * Destroy a queue_t object.
+ *
+ * This will destroy a queue_t object, that is not needed anymore. This includes
+ * freeing up any memory associated with the queue_t object for example.
+ *
+ * No more left over items can be retrieved from the queue after destroying it.
+ */
+void
+queue_destroy(queue_t *);
 
 /*
  * Initialize a new queue.

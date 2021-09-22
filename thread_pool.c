@@ -10,13 +10,13 @@
 
 #define THREAD_POOL_SIZE 5
 
-queue_t queue;
+queue_t *queue;
 pthread_t thread_pool[THREAD_POOL_SIZE];
 
 void *
 thread_start_routine(void *arg) {
     while (true) {
-        queue_item_t *item = queue_retrieve(&queue);
+        queue_item_t *item = queue_retrieve(queue);
         task_execute((task_t *)item->data);
     }
 
@@ -39,11 +39,18 @@ thread_pool_join(void) {
 
 int
 main(void) {
-    queue_init(&queue);
+    if ((queue = queue_create()) == NULL) {
+        fprintf("Task queue could not be created.");
+        return EXIT_FAILURE;
+    }
+
     thread_pool_init();
 
     // TODO(Jim Gerth): Add tasks to queue.
 
     thread_pool_join();
+
+    queue_destroy(queue);
+
     return EXIT_SUCCESS;
 }

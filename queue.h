@@ -60,6 +60,28 @@ void
 queue_item_init(queue_item_t *, void *);
 
 /*
+ * Create a new queue_t object.
+ *
+ * This will create and initialize a new queue_t and return a handle to that
+ * object.
+ *
+ * This will return NULL if the queue_t could not be created.
+ */
+queue_t *
+queue_create(void);
+
+/*
+ * Destroy a queue_t object.
+ *
+ * This will destroy a queue_t object, that is not needed anymore. This includes
+ * freeing up any memory associated with the queue_t object for example.
+ *
+ * No more left over items can be retrieved from the queue after destroying it.
+ */
+void
+queue_destroy(queue_t *);
+
+/*
  * Initialize a new queue.
  *
  * This must be called for any newly declared queue_t instance, before calling

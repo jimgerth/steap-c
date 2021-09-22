@@ -28,6 +28,26 @@ queue_item_init(queue_item_t *item, void *data) {
     item->data = data;
 }
 
+queue_t *
+queue_create(void) {
+    queue_t *queue;
+    if ((queue = malloc(sizeof (queue_t))) == NULL) {
+        return NULL;
+    }
+
+    queue_init(queue);
+    return queue;
+}
+
+void
+queue_destroy(queue_t *queue) {
+    while (!queue_empty(queue)) {
+        queue_item_destroy(queue_retrieve(queue));
+    }
+
+    free(queue);
+}
+
 void
 queue_init(queue_t *queue) {
     queue->head = NULL;

@@ -40,12 +40,13 @@ queue_create(void) {
 }
 
 void
-queue_destroy(queue_t *queue) {
-    while (!queue_empty(queue)) {
-        queue_item_destroy(queue_retrieve(queue));
+queue_destroy(queue_t **queue) {
+    while (!queue_empty(*queue)) {
+        queue_item_destroy(queue_retrieve(*queue));
     }
 
-    free(queue);
+    free(*queue);
+    *queue = NULL;
 }
 
 void

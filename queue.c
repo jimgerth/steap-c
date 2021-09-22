@@ -55,7 +55,8 @@ queue_destroy(queue_t **queue) {
     }
 
     while (!queue_empty(*queue)) {
-        queue_item_destroy(queue_retrieve(*queue));
+        queue_item_t *item = queue_retrieve(*queue);
+        queue_item_destroy(&item);
     }
 
     free(*queue);

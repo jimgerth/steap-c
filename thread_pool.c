@@ -50,7 +50,7 @@ main(void) {
 
     thread_pool_join();
 
-    queue_destroy(queue);
+    queue_destroy(&queue);
 
     return EXIT_SUCCESS;
 }

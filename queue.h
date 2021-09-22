@@ -48,7 +48,7 @@ queue_item_create(void *);
  * example.
  */
 void
-queue_item_destroy(queue_item_t *);
+queue_item_destroy(queue_item_t **);
 
 /*
  * Initialize a new queue item.
@@ -79,7 +79,7 @@ queue_create(void);
  * No more left over items can be retrieved from the queue after destroying it.
  */
 void
-queue_destroy(queue_t *);
+queue_destroy(queue_t **);
 
 /*
  * Initialize a new queue.

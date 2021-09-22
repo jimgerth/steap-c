@@ -85,10 +85,13 @@ queue_empty(queue_t *queue) {
 }
 
 void
-queue_submit(queue_t *queue, queue_item_t *item) {
+queue_submit(queue_t *queue, void *data) {
     if (queue == NULL) {
         return;
     }
+
+    queue_item_t *item;
+    while ((item = queue_item_create(data)) == NULL);
 
     pthread_mutex_lock(&queue->mutex);
 

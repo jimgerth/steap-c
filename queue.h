@@ -97,12 +97,12 @@ bool
 queue_empty(queue_t *);
 
 /*
- * Add the given item to the given queue.
+ * Add the given data to the given queue.
  *
  * This call is synchronized and thus safe to call from different threads.
  */
 void
-queue_submit(queue_t *, queue_item_t *);
+queue_submit(queue_t *, void *);
 
 /*
  * Remove and return the oldest item from the given queue.

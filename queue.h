@@ -97,25 +97,25 @@ bool
 queue_empty(queue_t *);
 
 /*
- * Add the given item to the given queue.
+ * Add the given data to the given queue.
  *
  * This call is synchronized and thus safe to call from different threads.
  */
 void
-queue_submit(queue_t *, queue_item_t *);
+queue_submit(queue_t *, void *);
 
 /*
- * Remove and return the oldest item from the given queue.
+ * Remove and return the oldest data from the given queue.
  *
- * This call will return that item from the queue that has been inserted the
+ * This call will return that data from the queue that has been inserted the
  * longest time ago, operating according to the "first in, first out" principle.
  *
  * This call is synchronized and thus safe to call from different threads.
  *
- * This call will block if the given queue is empty. It will only return once an
- * item could successfully be retrieved from the queue.
+ * This call will block if the given queue is empty. It will only return once
+ * data could successfully be retrieved from the queue.
  */
-queue_item_t *
+void *
 queue_retrieve(queue_t *);
 
 #endif /* !_QUEUE_H_ */

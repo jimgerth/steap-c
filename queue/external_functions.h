@@ -1,8 +1,6 @@
 #ifndef __QUEUE_EXTERNAL_FUNCTIONS_H__
 #define __QUEUE_EXTERNAL_FUNCTIONS_H__
 
-#include <stdbool.h>
-
 
 /*
  * Create a new queue_item_t object.
@@ -46,12 +44,6 @@ queue_create(void);
  */
 void
 queue_destroy(queue_t **);
-
-/*
- * Return whether the given queue is empty.
- */
-bool
-queue_empty(queue_t *);
 
 /*
  * Add the given data to the given queue.

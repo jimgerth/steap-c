@@ -3,17 +3,6 @@
 
 
 /*
- * Create a new queue_item_t object.
- *
- * This will create and initialize a new queue_item_t and return a handle to
- * that object.
- *
- * This will return NULL if the queue_item_t could not be created.
- */
-queue_item_t *
-queue_item_create(void *);
-
-/*
  * Destroy a queue_item_t object.
  *
  * This will destroy a queue_item_t object, that is not needed anymore. This

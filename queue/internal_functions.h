@@ -5,6 +5,17 @@
 
 
 /*
+ * Create a new queue_item_t object.
+ *
+ * This will create and initialize a new queue_item_t and return a handle to
+ * that object.
+ *
+ * This will return NULL if the queue_item_t could not be created.
+ */
+queue_item_t *
+queue_item_create(void *);
+
+/*
  * Initialize a new queue item.
  *
  * This must be called for any newly declared queue_item_t, before calling any

@@ -3,11 +3,6 @@
 
 
 /*
- * An enqueueable item with a generic data payload.
- */
-typedef void queue_item_t;
-
-/*
  * A queue of items with a generic data payload.
  *
  * This queue serves as a "first in, first out" buffer, keeping track of

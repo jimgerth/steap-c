@@ -48,15 +48,6 @@ void
 queue_destroy(queue_t **);
 
 /*
- * Initialize a new queue.
- *
- * This must be called for any newly declared queue_t instance, before calling
- * any other queue_* function with it.
- */
-void
-queue_init(queue_t *);
-
-/*
  * Return whether the given queue is empty.
  */
 bool

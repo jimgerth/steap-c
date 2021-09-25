@@ -26,15 +26,6 @@ void
 queue_item_destroy(queue_item_t **);
 
 /*
- * Initialize a new queue item.
- *
- * This must be called for any newly declared queue_item_t, before calling any
- * other queue_* function with it.
- */
-void
-queue_item_init(queue_item_t *, void *);
-
-/*
  * Create a new queue_t object.
  *
  * This will create and initialize a new queue_t and return a handle to that

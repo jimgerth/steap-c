@@ -26,6 +26,6 @@ queue_init(queue_t *);
  * Return whether the given queue is empty.
  */
 bool
-queue_empty(queue_t *);
+queue_is_empty(queue_t *);
 
 #endif

@@ -3,16 +3,6 @@
 
 
 /*
- * Destroy a queue_item_t object.
- *
- * This will destroy a queue_item_t object, that is not needed anymore. This
- * includes freeing up any memory associated with the queue_item_t object for
- * example.
- */
-void
-queue_item_destroy(queue_item_t **);
-
-/*
  * Create a new queue_t object.
  *
  * This will create and initialize a new queue_t and return a handle to that

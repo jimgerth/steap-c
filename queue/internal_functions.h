@@ -25,6 +25,16 @@ void
 queue_item_init(queue_item_t *, void *);
 
 /*
+ * Destroy a queue_item_t object.
+ *
+ * This will destroy a queue_item_t object, that is not needed anymore. This
+ * includes freeing up any memory associated with the queue_item_t object for
+ * example.
+ */
+void
+queue_item_destroy(queue_item_t **);
+
+/*
  * Initialize a new queue.
  *
  * This must be called for any newly declared queue_t instance, before calling

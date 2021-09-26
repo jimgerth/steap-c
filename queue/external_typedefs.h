@@ -3,18 +3,12 @@
 
 
 /*
- * An enqueueable item with a generic data payload.
- */
-typedef void queue_item_t;
-
-/*
- * A queue of items with a generic data payload.
+ * A queue of generic data.
  *
- * This queue serves as a "first in, first out" buffer, keeping track of
- * references to queue items, which in turn keep track of arbitrary data. New
- * items can be inserted into the queue (submitted), while items already in the
- * queue can be removed again (retrieved). Items will be retrieved in the same
- * order they were previously submitted.
+ * This queue serves as a "first in, first out" buffer, keeping track of generic
+ * data. New data can be inserted into the queue (submitted), while data already
+ * in the queue can be removed again (retrieved). Data will be retrieved in the
+ * same order it was previously submitted.
  */
 typedef void queue_t;
 

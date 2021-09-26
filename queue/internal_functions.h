@@ -7,8 +7,9 @@
 /*
  * Create a new queue_item_t object.
  *
- * This will create and initialize a new queue_item_t and return a handle to
- * that object.
+ * This will create and initialize a new queue item and return a handle to it.
+ * That handle can be used with the various queue_item_*() functions to
+ * manipulate the queue item, by passing it in as the first argument.
  *
  * This will return NULL if the queue_item_t could not be created.
  */

@@ -5,10 +5,11 @@
 /*
  * Create a new queue_t object.
  *
- * This will create and initialize a new queue_t and return a handle to that
- * object.
+ * This will create and initialize a new queue and return a handle to it. That
+ * handle can be used with the various queue_*() functions to manipulate the
+ * queue, by passing it in as the first argument.
  *
- * This will return NULL if the queue_t could not be created.
+ * This will return NULL if the queue could not be created.
  */
 queue_t *
 queue_create(void);
@@ -19,7 +20,7 @@ queue_create(void);
  * This will destroy a queue_t object, that is not needed anymore. This includes
  * freeing up any memory associated with the queue_t object for example.
  *
- * No more left over items can be retrieved from the queue after destroying it.
+ * No more left over data can be retrieved from the queue after destroying it.
  */
 void
 queue_destroy(queue_t **);

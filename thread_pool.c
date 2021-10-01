@@ -36,6 +36,10 @@ thread_pool_join(void) {
     }
 }
 
+void func(void *arg) {
+    printf("%d\n", (int)arg);
+}
+
 int
 main(void) {
     if ((queue = queue_create()) == NULL) {
@@ -45,7 +49,19 @@ main(void) {
 
     thread_pool_init();
 
-    // TODO(Jim Gerth): Add tasks to queue.
+    task_t *task1;
+    if ((task1 = task_create(func, (void *)1)) == NULL) {
+        fprintf(stderr, "Task 1 could not be created.\n");
+    }
+
+    task_t *task2;
+    if ((task2 = task_create(func, (void *)2)) == NULL) {
+        fprintf(stderr, "Task 2 could not be created.\n");
+    }
+
+    queue_submit(queue, task1);
+    sleep(2);
+    queue_submit(queue, task2);
 
     thread_pool_join();
 
